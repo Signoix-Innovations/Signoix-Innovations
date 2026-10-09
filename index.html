@@ -28,6 +28,13 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; scroll-padding-top: 90px; }
 body {
+  
+<div class="ambient-background" aria-hidden="true">
+  <div class="ambient-glow glow-one"></div>
+  <div class="ambient-glow glow-two"></div>
+  <div class="ambient-glow glow-three"></div>
+  <canvas id="particleCanvas"></canvas>
+</div>
   background: var(--bg);
   color: var(--text);
   font-family: Inter, sans-serif;
@@ -424,6 +431,255 @@ footer { border-top: 1px solid var(--border); padding: 25px 0; background: rgba(
   .section-title { letter-spacing: -.8px; }
   .ambient-glow { opacity: .11; }
 }
+
+
+/* ===== BIGNPIX Animated Ambient Background ===== */
+
+body {
+  position: relative;
+  isolation: isolate;
+}
+
+.ambient-background {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 15% 15%, rgba(20, 100, 220, .09), transparent 42%),
+    radial-gradient(ellipse at 85% 75%, rgba(110, 55, 220, .07), transparent 40%);
+}
+
+.ambient-glow {
+  position: absolute;
+  width: 440px;
+  height: 440px;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: .15;
+  will-change: transform;
+}
+
+.glow-one {
+  background: #087bff;
+  top: 5%;
+  left: -180px;
+  animation: ambientDriftOne 24s ease-in-out infinite alternate;
+}
+
+.glow-two {
+  background: #793cff;
+  top: 35%;
+  right: -200px;
+  animation: ambientDriftTwo 29s ease-in-out infinite alternate;
+}
+
+.glow-three {
+  width: 300px;
+  height: 300px;
+  background: #00c9e8;
+  bottom: -120px;
+  left: 35%;
+  opacity: .09;
+  animation: ambientDriftThree 22s ease-in-out infinite alternate;
+}
+
+#particleCanvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: .48;
+}
+
+@keyframes ambientDriftOne {
+  from { transform: translate(0, 0); }
+  to   { transform: translate(180px, 220px); }
+}
+
+@keyframes ambientDriftTwo {
+  from { transform: translate(0, 0); }
+  to   { transform: translate(-190px, -160px); }
+}
+
+@keyframes ambientDriftThree {
+  from { transform: translate(0, 0); }
+  to   { transform: translate(140px, -100px); }
+}
+
+/* Keep content above the decorative background */
+header, main, footer {
+  position: relative;
+}
+
+/* Respect visitors who prefer less animation */
+@media (prefers-reduced-motion: reduce) {
+  .ambient-glow {
+    animation: none !important;
+  }
+
+  #particleCanvas {
+    display: none;
+  }
+}
+
+
+
+/* ===== Subtle Interactive Particle Network ===== */
+
+(() => {
+  const canvas = document.getElementById("particleCanvas");
+  if (!canvas) return;
+
+  const ctx = canvas.getContext("2d");
+  if (!ctx) return;
+
+  const reducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  );
+
+  const particles = [];
+  const pointer = { x: -1000, y: -1000 };
+
+  let width = 0;
+  let height = 0;
+  let animationId;
+  let lastFrame = 0;
+
+  const isMobile = () => window.innerWidth < 700;
+
+  function resize() {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    width = window.innerWidth;
+    height = window.innerHeight;
+
+    canvas.width = Math.round(width * dpr);
+    canvas.height = Math.round(height * dpr);
+
+    canvas.style.width = width + "px";
+    canvas.style.height = height + "px";
+
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    const count = Math.min(
+      isMobile() ? 24 : 55,
+      Math.floor((width * height) / 23000)
+    );
+
+    particles.length = 0;
+
+    for (let i = 0; i < count; i++) {
+      particles.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 0.24,
+        vy: (Math.random() - 0.5) * 0.24,
+        radius: Math.random() * 1.4 + 0.5
+      });
+    }
+  }
+
+  function draw(timestamp) {
+    animationId = null;
+
+    if (reducedMotion.matches || document.hidden) return;
+
+    // Cap animation at approximately 30 frames per second.
+    if (timestamp - lastFrame < 33) {
+      animationId = requestAnimationFrame(draw);
+      return;
+    }
+
+    lastFrame = timestamp;
+    ctx.clearRect(0, 0, width, height);
+
+    const connectionDistance = isMobile() ? 90 : 125;
+
+    for (const p of particles) {
+      p.x += p.vx;
+      p.y += p.vy;
+
+      if (p.x < 0 || p.x > width) p.vx *= -1;
+      if (p.y < 0 || p.y > height) p.vy *= -1;
+
+      p.x = Math.max(0, Math.min(width, p.x));
+      p.y = Math.max(0, Math.min(height, p.y));
+
+      // Very subtle response to the pointer.
+      const dx = p.x - pointer.x;
+      const dy = p.y - pointer.y;
+      const distance = Math.sqrt(dx * dx + dy * dy);
+
+      if (distance < 110 && distance > 0) {
+        p.x += (dx / distance) * 0.12;
+        p.y += (dy / distance) * 0.12;
+      }
+
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+      ctx.fillStyle = "rgba(91, 185, 255, 0.55)";
+      ctx.fill();
+    }
+
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const a = particles[i];
+        const b = particles[j];
+
+        const dx = a.x - b.x;
+        const dy = a.y - b.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+
+        if (distance < connectionDistance) {
+          const opacity =
+            (1 - distance / connectionDistance) * 0.15;
+
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.strokeStyle = `rgba(72, 142, 255, ${opacity})`;
+          ctx.lineWidth = 0.7;
+          ctx.stroke();
+        }
+      }
+    }
+
+    animationId = requestAnimationFrame(draw);
+  }
+
+  function start() {
+    if (animationId !== null && animationId !== undefined) {
+      cancelAnimationFrame(animationId);
+      animationId = null;
+    }
+
+    if (reducedMotion.matches || document.hidden) return;
+
+    lastFrame = 0;
+    animationId = requestAnimationFrame(draw);
+  }
+
+  window.addEventListener("resize", resize, { passive: true });
+
+  window.addEventListener("pointermove", event => {
+    pointer.x = event.clientX;
+    pointer.y = event.clientY;
+  }, { passive: true });
+
+  window.addEventListener("pointerleave", () => {
+    pointer.x = -1000;
+    pointer.y = -1000;
+  });
+
+  document.addEventListener("visibilitychange", start);
+  reducedMotion.addEventListener("change", start);
+
+  resize();
+  start();
+})();
+  
 </style>
 </head>
 
