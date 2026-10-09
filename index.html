@@ -5,23 +5,24 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#050b18">
-<meta name="description" content="Naveen Kumar — PhD researcher at IIT Indore working in biomedical signal processing, machine learning, artificial intelligence and deep-tech innovation.">
+<meta name="description" content="Naveen Kumar — PhD researcher at IIT Indore working in biomedical signal processing, AI, machine learning and deep-tech innovation.">
 <title>Naveen Kumar | AI Researcher & BIGNPIX Innovation</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
 :root {
   --bg: #050b18;
   --bg2: #081326;
-  --card: rgba(13, 27, 49, .78);
+  --card: rgba(13,27,49,.82);
   --text: #f3f7ff;
   --muted: #9cacc5;
   --blue: #36b9ff;
   --purple: #9870ff;
-  --border: rgba(110, 166, 255, .18);
-  --gradient: linear-gradient(110deg, #24c6ff, #7166ff 58%, #b36aff);
+  --border: rgba(110,166,255,.18);
+  --gradient: linear-gradient(110deg,#24c6ff,#7166ff 58%,#b36aff);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -32,26 +33,81 @@ body {
   font-family: Inter, sans-serif;
   line-height: 1.7;
   overflow-x: hidden;
+  position: relative;
+  isolation: isolate;
 }
 a { color: inherit; text-decoration: none; }
-button, a { -webkit-tap-highlight-color: transparent; }
 button { font: inherit; }
 ::selection { background: #387dff; color: white; }
 
-body::before {
-  content: "";
+.ambient-background {
   position: fixed;
   inset: 0;
-  pointer-events: none;
   z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
   background:
-    radial-gradient(ellipse at 15% 15%, rgba(22, 106, 255, .12), transparent 35%),
-    radial-gradient(ellipse at 85% 35%, rgba(131, 65, 255, .10), transparent 34%),
-    radial-gradient(ellipse at 50% 85%, rgba(0, 197, 255, .06), transparent 35%);
+    radial-gradient(ellipse at 15% 15%,rgba(20,100,220,.09),transparent 42%),
+    radial-gradient(ellipse at 85% 75%,rgba(110,55,220,.07),transparent 40%);
+}
+.ambient-glow {
+  position: absolute;
+  width: 440px;
+  height: 440px;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: .16;
+  will-change: transform;
+}
+.glow-one {
+  background: #087bff;
+  top: 5%; left: -180px;
+  animation: driftOne 24s ease-in-out infinite alternate;
+}
+.glow-two {
+  background: #793cff;
+  top: 35%; right: -200px;
+  animation: driftTwo 29s ease-in-out infinite alternate;
+}
+.glow-three {
+  width: 300px; height: 300px;
+  background: #00c9e8;
+  bottom: -120px; left: 35%;
+  opacity: .10;
+  animation: driftThree 22s ease-in-out infinite alternate;
+}
+#particleCanvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: .48;
+}
+@keyframes driftOne {
+  from { transform: translate(0,0); }
+  to { transform: translate(180px,220px); }
+}
+@keyframes driftTwo {
+  from { transform: translate(0,0); }
+  to { transform: translate(-190px,-160px); }
+}
+@keyframes driftThree {
+  from { transform: translate(0,0); }
+  to { transform: translate(140px,-100px); }
+}
+@keyframes float {
+  0%,100% { transform: translateY(0) rotate(0); }
+  50% { transform: translateY(-10px) rotate(1deg); }
+}
+@keyframes pulse {
+  0%,100% { box-shadow: 0 0 8px #43e5a0; }
+  50% { box-shadow: 0 0 18px #43e5a0; }
 }
 
-.container { width: min(1160px, 90%); margin: auto; }
+.container { width: min(1160px,90%); margin: auto; }
 section { padding: 95px 0; position: relative; }
+header, main, footer { position: relative; }
+
 .section-label {
   color: var(--blue);
   text-transform: uppercase;
@@ -61,7 +117,7 @@ section { padding: 95px 0; position: relative; }
   margin-bottom: 12px;
 }
 .section-title {
-  font: 700 clamp(2rem, 4vw, 3rem)/1.2 "Space Grotesk", sans-serif;
+  font: 700 clamp(2rem,4vw,3rem)/1.2 "Space Grotesk",sans-serif;
   letter-spacing: -1.4px;
   margin-bottom: 18px;
 }
@@ -81,9 +137,9 @@ header {
   position: fixed;
   z-index: 1000;
   top: 0; left: 0; right: 0;
-  background: rgba(5, 11, 24, .82);
+  background: rgba(5,11,24,.82);
   backdrop-filter: blur(18px);
-  border-bottom: 1px solid rgba(110, 166, 255, .12);
+  border-bottom: 1px solid rgba(110,166,255,.12);
 }
 .nav {
   height: 76px;
@@ -96,21 +152,17 @@ header {
 .brand-mark {
   width: 43px; height: 43px;
   display: grid; place-items: center;
-  border: 1px solid rgba(65, 188, 255, .6);
+  border: 1px solid rgba(65,188,255,.6);
   border-radius: 13px;
-  background: linear-gradient(145deg, rgba(31, 180, 255, .18), rgba(140, 91, 255, .2));
-  color: #fff;
-  font: 800 1.65rem "Space Grotesk", sans-serif;
-  box-shadow: 0 0 22px rgba(48, 152, 255, .12);
+  background: linear-gradient(145deg,rgba(31,180,255,.18),rgba(140,91,255,.2));
+  color: white;
+  font: 800 1.65rem "Space Grotesk",sans-serif;
+  box-shadow: 0 0 22px rgba(48,152,255,.12);
 }
-.brand-name { font: 700 1.1rem "Space Grotesk", sans-serif; letter-spacing: .8px; }
+.brand-name { font: 700 1.1rem "Space Grotesk",sans-serif; letter-spacing: .8px; }
 .brand-sub { color: var(--muted); font-size: .62rem; line-height: 1.3; }
-.nav-links { display: flex; align-items: center; gap: 23px; }
-.nav-links a {
-  color: #c4d0e3;
-  font-size: .82rem;
-  transition: color .25s;
-}
+.nav-links { display: flex; align-items: center; gap: 20px; }
+.nav-links a { color: #c4d0e3; font-size: .8rem; transition: color .25s; }
 .nav-links a:hover, .nav-links a.active { color: var(--blue); }
 .nav-cta, .btn {
   display: inline-flex;
@@ -122,188 +174,147 @@ header {
   border: 1px solid var(--border);
   font-weight: 600;
   font-size: .87rem;
-  transition: transform .25s, box-shadow .25s, border-color .25s;
+  transition: transform .25s,box-shadow .25s,border-color .25s;
   cursor: pointer;
 }
-.nav-cta { padding: 9px 15px; font-size: .78rem; }
-.btn-primary {
-  color: white;
-  border: 0;
-  background: var(--gradient);
-  box-shadow: 0 8px 30px rgba(71, 111, 255, .2);
+.nav-cta { padding: 9px 13px; font-size: .76rem; }
+.btn-primary { color: white; border: 0; background: var(--gradient); box-shadow: 0 8px 30px rgba(71,111,255,.2); }
+.btn-outline { color: white; background: rgba(10,25,46,.5); }
+.btn:hover, .nav-cta:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 9px 30px rgba(53,151,255,.2);
+  border-color: var(--blue);
 }
-.btn-outline { color: white; background: rgba(10, 25, 46, .5); }
-.btn:hover, .nav-cta:hover { transform: translateY(-3px); box-shadow: 0 9px 30px rgba(53, 151, 255, .2); border-color: var(--blue); }
 .menu-toggle { display: none; background: none; color: white; border: 0; font-size: 1.7rem; cursor: pointer; }
 
 .hero { min-height: 730px; padding: 145px 0 80px; display: flex; align-items: center; }
 .hero-grid { display: grid; grid-template-columns: 1.1fr .9fr; align-items: center; gap: 55px; }
 .eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 7px 13px;
-  border: 1px solid var(--border);
-  border-radius: 40px;
-  background: rgba(16, 35, 63, .5);
-  color: #c4d6ef;
-  font-size: .79rem;
-  margin-bottom: 25px;
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 7px 13px; border: 1px solid var(--border);
+  border-radius: 40px; background: rgba(16,35,63,.5);
+  color: #c4d6ef; font-size: .79rem; margin-bottom: 25px;
 }
-.pulse-dot { width: 7px; height: 7px; border-radius: 50%; background: #43e5a0; box-shadow: 0 0 10px #43e5a0; }
+.pulse-dot { width: 7px; height: 7px; border-radius: 50%; background: #43e5a0; animation: pulse 2s infinite; }
 .hero h1 {
-  font: 700 clamp(3.1rem, 6.3vw, 5.4rem)/1.04 "Space Grotesk", sans-serif;
-  letter-spacing: -3.5px;
-  margin-bottom: 22px;
+  font: 700 clamp(3.1rem,6.3vw,5.4rem)/1.04 "Space Grotesk",sans-serif;
+  letter-spacing: -3.5px; margin-bottom: 22px;
 }
 .hero h2 { font-size: 1.2rem; font-weight: 500; color: #d8e5f8; margin-bottom: 14px; }
 .hero p { max-width: 620px; color: var(--muted); font-size: .98rem; }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 13px; margin-top: 29px; }
 .hero-tags { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 28px; }
-.tag {
-  border: 1px solid var(--border);
-  background: rgba(15, 32, 56, .6);
-  padding: 6px 11px;
-  border-radius: 7px;
-  color: #bdcce3;
-  font-size: .75rem;
-}
+.tag { border: 1px solid var(--border); background: rgba(15,32,56,.6); padding: 6px 11px; border-radius: 7px; color: #bdcce3; font-size: .75rem; }
+
 .hero-visual { min-height: 400px; display: grid; place-items: center; position: relative; }
 .orbit {
-  width: min(350px, 90%);
-  aspect-ratio: 1;
-  border: 1px solid rgba(63, 170, 255, .4);
+  width: min(350px,90%); aspect-ratio: 1;
+  border: 1px solid rgba(63,170,255,.4);
   border-radius: 45% 55% 56% 44% / 47% 42% 58% 53%;
-  display: grid; place-items: center;
-  position: relative;
-  background: radial-gradient(circle, rgba(30, 107, 202, .16), rgba(73, 48, 155, .08) 60%, transparent 70%);
-  box-shadow: 0 0 90px rgba(48, 122, 255, .11), inset 0 0 55px rgba(66, 126, 255, .08);
+  display: grid; place-items: center; position: relative;
+  background: radial-gradient(circle,rgba(30,107,202,.16),rgba(73,48,155,.08) 60%,transparent 70%);
+  box-shadow: 0 0 90px rgba(48,122,255,.11),inset 0 0 55px rgba(66,126,255,.08);
   animation: float 7s ease-in-out infinite;
 }
 .orbit::before, .orbit::after {
   content: ""; position: absolute; inset: -20px;
-  border: 1px solid rgba(147, 109, 255, .25);
-  border-radius: 50%; transform: rotate(-25deg);
+  border: 1px solid rgba(147,109,255,.25); border-radius: 50%; transform: rotate(-25deg);
 }
-.orbit::after { inset: -39px; border-color: rgba(41, 173, 255, .13); transform: rotate(35deg); }
+.orbit::after { inset: -39px; border-color: rgba(41,173,255,.13); transform: rotate(35deg); }
 .avatar {
   width: 225px; height: 260px;
   display: grid; place-items: center;
   border-radius: 48% 48% 22px 22px;
-  border: 1px solid rgba(90, 184, 255, .5);
-  background: linear-gradient(155deg, #153e70, #111a3d 55%, #42256f);
-  color: white;
-  font: 700 5rem "Space Grotesk", sans-serif;
-  box-shadow: 0 15px 60px rgba(0, 0, 0, .35);
-  overflow: hidden;
+  border: 1px solid rgba(90,184,255,.5);
+  background: linear-gradient(155deg,#153e70,#111a3d 55%,#42256f);
+  color: white; font: 700 5rem "Space Grotesk",sans-serif;
+  box-shadow: 0 15px 60px rgba(0,0,0,.35); overflow: hidden;
 }
 .avatar img { width: 100%; height: 100%; object-fit: cover; }
 .floating-card {
-  position: absolute;
-  background: rgba(8, 22, 42, .94);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 12px 15px;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, .2);
-  font-size: .78rem;
-  backdrop-filter: blur(12px);
+  position: absolute; background: rgba(8,22,42,.94);
+  border: 1px solid var(--border); border-radius: 12px;
+  padding: 12px 15px; box-shadow: 0 15px 35px rgba(0,0,0,.2);
+  font-size: .78rem; backdrop-filter: blur(12px);
 }
 .floating-card strong { display: block; font-size: .9rem; }
 .float-one { top: 43px; right: 0; }
 .float-two { bottom: 39px; left: 0; }
-.company-bubble {
-  position: absolute; bottom: -26px; right: 0;
-  font: 700 1rem "Space Grotesk", sans-serif;
-  color: #dbe9ff;
-  letter-spacing: 1px;
-}
+.company-bubble { position: absolute; bottom: -26px; right: 0; font: 700 1rem "Space Grotesk",sans-serif; color: #dbe9ff; letter-spacing: 1px; }
 .company-bubble span { color: var(--blue); }
 
-.stats-strip { border-block: 1px solid var(--border); background: rgba(9, 20, 37, .6); }
-.stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
+.stats-strip { border-block: 1px solid var(--border); background: rgba(9,20,37,.6); }
+.stats-grid { display: grid; grid-template-columns: repeat(4,1fr); }
 .stat { padding: 25px 15px; text-align: center; border-right: 1px solid var(--border); }
 .stat:last-child { border: 0; }
-.stat strong { display: block; font: 700 1.7rem "Space Grotesk", sans-serif; color: var(--blue); }
+.stat strong { display: block; font: 700 1.7rem "Space Grotesk",sans-serif; color: var(--blue); }
 .stat span { color: var(--muted); font-size: .78rem; }
 
 .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 55px; align-items: start; }
 .about-copy p { color: var(--muted); margin-bottom: 17px; }
 .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-.feature {
-  padding: 23px; border: 1px solid var(--border); border-radius: 13px;
-  background: var(--card); transition: transform .3s, border-color .3s;
-}
+.feature { padding: 23px; border: 1px solid var(--border); border-radius: 13px; background: var(--card); transition: transform .3s,border-color .3s; }
 .feature:hover { transform: translateY(-5px); border-color: var(--blue); }
 .feature .icon { font-size: 1.6rem; margin-bottom: 11px; }
 .feature h3 { font-size: .98rem; margin-bottom: 7px; }
 .feature p { color: var(--muted); font-size: .82rem; }
 
-.timeline { position: relative; display: grid; grid-template-columns: repeat(5, 1fr); gap: 15px; margin-top: 45px; }
-.timeline::before { content: ""; position: absolute; top: 19px; left: 7%; right: 7%; height: 1px; background: linear-gradient(90deg, var(--blue), var(--purple)); }
+.timeline { position: relative; display: grid; grid-template-columns: repeat(5,1fr); gap: 15px; margin-top: 45px; }
+.timeline::before { content: ""; position: absolute; top: 19px; left: 7%; right: 7%; height: 1px; background: linear-gradient(90deg,var(--blue),var(--purple)); }
 .timeline-item { position: relative; padding-top: 52px; }
 .timeline-dot {
-  position: absolute; top: 0; left: 0;
-  width: 39px; height: 39px; border-radius: 50%;
-  display: grid; place-items: center;
-  background: #102544; border: 1px solid var(--blue);
-  color: var(--blue); z-index: 1;
+  position: absolute; top: 0; left: 0; width: 39px; height: 39px;
+  border-radius: 50%; display: grid; place-items: center;
+  background: #102544; border: 1px solid var(--blue); color: var(--blue); z-index: 1;
 }
 .timeline-item h3 { font-size: .94rem; margin-bottom: 7px; }
 .timeline-item p { font-size: .81rem; color: var(--muted); }
 
 .projects-layout { display: grid; grid-template-columns: 1fr 290px; gap: 35px; align-items: start; }
-.project-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+.project-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 18px; }
 .project-card {
   border: 1px solid var(--border); border-radius: 14px; overflow: hidden;
-  background: var(--card); transition: transform .3s, border-color .3s, box-shadow .3s;
+  background: var(--card); transition: transform .3s,border-color .3s,box-shadow .3s;
 }
-.project-card:hover { transform: translateY(-7px); border-color: rgba(54, 185, 255, .7); box-shadow: 0 15px 35px rgba(0, 0, 0, .2); }
+.project-card:hover { transform: translateY(-7px); border-color: rgba(54,185,255,.7); box-shadow: 0 15px 35px rgba(0,0,0,.2); }
 .project-art {
   height: 135px; display: grid; place-items: center; position: relative; overflow: hidden;
-  background: linear-gradient(135deg, #0b3861, #1c2353 55%, #412365);
+  background: linear-gradient(135deg,#0b3861,#1c2353 55%,#412365);
 }
 .project-art::before { content: ""; position: absolute; width: 180px; height: 180px; border: 1px solid rgba(255,255,255,.14); border-radius: 50%; }
-.project-art span { font-size: 3.1rem; filter: drop-shadow(0 0 15px rgba(73, 184, 255, .4)); z-index: 1; transition: transform .35s; }
+.project-art span { font-size: 3.1rem; filter: drop-shadow(0 0 15px rgba(73,184,255,.4)); z-index: 1; transition: transform .35s; }
 .project-card:hover .project-art span { transform: scale(1.18) rotate(-5deg); }
-.project-art.alt1 { background: linear-gradient(135deg, #102c54, #153e5c, #183d72); }
-.project-art.alt2 { background: linear-gradient(135deg, #311a4d, #172858, #0c435b); }
-.project-art.alt3 { background: linear-gradient(135deg, #163a4c, #25245c, #492c6d); }
+.project-art.alt1 { background: linear-gradient(135deg,#102c54,#153e5c,#183d72); }
+.project-art.alt2 { background: linear-gradient(135deg,#311a4d,#172858,#0c435b); }
+.project-art.alt3 { background: linear-gradient(135deg,#163a4c,#25245c,#492c6d); }
 .project-content { padding: 19px; }
 .project-content h3 { font-size: 1rem; margin-bottom: 9px; line-height: 1.4; }
 .project-content p { color: var(--muted); font-size: .82rem; margin-bottom: 15px; }
 .project-tags { display: flex; flex-wrap: wrap; gap: 7px; }
-.project-tags span { color: #7fd6ff; background: rgba(42, 143, 219, .1); padding: 4px 8px; border-radius: 5px; font-size: .68rem; }
+.project-tags span { color: #7fd6ff; background: rgba(42,143,219,.1); padding: 4px 8px; border-radius: 5px; font-size: .68rem; }
 .project-link { display: inline-block; margin-top: 14px; font-size: .8rem; color: var(--blue); }
 .project-link:hover { color: white; }
 
-.skill-panel, .info-card {
-  padding: 24px; background: var(--card); border: 1px solid var(--border); border-radius: 14px;
-}
+.skill-panel, .info-card { padding: 24px; background: var(--card); border: 1px solid var(--border); border-radius: 14px; }
 .skill-panel h3 { font-size: 1rem; margin: 22px 0 12px; }
 .skill-panel h3:first-child { margin-top: 0; }
 .skill-cloud { display: flex; flex-wrap: wrap; gap: 8px; }
-.skill-cloud span {
-  padding: 7px 10px; border-radius: 7px; background: #102440;
-  color: #c3d7f0; font-size: .74rem; border: 1px solid rgba(100, 160, 255, .08);
-  transition: background .2s, transform .2s;
-}
+.skill-cloud span { padding: 7px 10px; border-radius: 7px; background: #102440; color: #c3d7f0; font-size: .74rem; border: 1px solid rgba(100,160,255,.08); transition: background .2s,transform .2s; }
 .skill-cloud span:hover { background: #17416b; transform: translateY(-2px); }
 
 .experience-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-.info-card { transition: border-color .25s, transform .25s; }
+.info-card { transition: border-color .25s,transform .25s; }
 .info-card:hover { border-color: var(--blue); transform: translateY(-3px); }
 .info-top { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 15px; }
-.info-icon {
-  min-width: 48px; height: 48px; display: grid; place-items: center;
-  border-radius: 12px; background: rgba(40, 145, 255, .12); font-size: 1.4rem;
-}
+.info-icon { min-width: 48px; height: 48px; display: grid; place-items: center; border-radius: 12px; background: rgba(40,145,255,.12); font-size: 1.4rem; }
 .info-card h3 { font-size: 1.03rem; }
 .info-card .role { color: var(--blue); font-size: .83rem; }
 .info-card p { color: var(--muted); font-size: .84rem; }
 .date { color: #8194b0; font-size: .75rem; margin-top: 5px; }
 
 .research-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-.research-item { display: flex; gap: 16px; padding: 21px; border: 1px solid var(--border); border-radius: 12px; background: var(--card); }
+.research-item { display: flex; gap: 16px; padding: 21px; border: 1px solid var(--border); border-radius: 12px; background: var(--card); transition: border-color .25s,transform .25s; }
+.research-item:hover { border-color: var(--blue); transform: translateY(-3px); }
 .research-icon { font-size: 1.5rem; color: var(--blue); }
 .research-item h3 { font-size: .94rem; margin-bottom: 7px; }
 .research-item p { color: var(--muted); font-size: .8rem; }
@@ -312,26 +323,27 @@ header {
 .company-section { padding: 0 0 95px; }
 .company-box {
   position: relative; overflow: hidden; border-radius: 22px;
-  border: 1px solid rgba(79, 162, 255, .3);
-  padding: clamp(30px, 6vw, 65px);
-  background: linear-gradient(120deg, rgba(14, 43, 78, .9), rgba(23, 20, 59, .95));
+  border: 1px solid rgba(79,162,255,.3);
+  padding: clamp(30px,6vw,65px);
+  background: linear-gradient(120deg,rgba(14,43,78,.9),rgba(23,20,59,.95));
 }
 .company-box::after {
   content: "B"; position: absolute; right: -20px; bottom: -135px;
-  font: 800 24rem "Space Grotesk", sans-serif; line-height: 1;
-  color: rgba(85, 160, 255, .055); pointer-events: none;
+  font: 800 24rem "Space Grotesk",sans-serif; line-height: 1;
+  color: rgba(85,160,255,.055); pointer-events: none;
 }
 .company-content { position: relative; z-index: 1; max-width: 730px; }
 .company-logo { display: flex; align-items: center; gap: 16px; margin-bottom: 25px; }
 .company-logo .brand-mark { width: 65px; height: 65px; font-size: 2.5rem; }
-.company-logo h3 { font: 700 1.65rem "Space Grotesk", sans-serif; letter-spacing: 1px; }
+.company-logo h3 { font: 700 1.65rem "Space Grotesk",sans-serif; letter-spacing: 1px; }
 .company-logo p { color: #8ecfff; font-size: .8rem; }
 .company-box > .company-content > p { color: #c0cfe4; margin-bottom: 25px; max-width: 650px; }
 .company-pills { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 28px; }
-.company-pills span { padding: 8px 12px; border: 1px solid rgba(100, 173, 255, .25); border-radius: 8px; font-size: .78rem; color: #d7e9ff; }
+.company-pills span { padding: 8px 12px; border: 1px solid rgba(100,173,255,.25); border-radius: 8px; font-size: .78rem; color: #d7e9ff; }
 
-.beyond-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-.beyond-card { padding: 24px; border: 1px solid var(--border); background: var(--card); border-radius: 13px; }
+.beyond-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; }
+.beyond-card { padding: 24px; border: 1px solid var(--border); background: var(--card); border-radius: 13px; transition: transform .25s,border-color .25s; }
+.beyond-card:hover { transform: translateY(-4px); border-color: var(--blue); }
 .beyond-card .icon { font-size: 1.8rem; margin-bottom: 12px; }
 .beyond-card h3 { font-size: 1rem; margin-bottom: 8px; }
 .beyond-card p { font-size: .83rem; color: var(--muted); }
@@ -340,12 +352,12 @@ header {
 .contact-box {
   text-align: center; padding: 60px 25px; border-radius: 20px;
   border: 1px solid var(--border);
-  background: radial-gradient(ellipse at 50% 100%, rgba(81, 80, 255, .17), transparent 65%), var(--bg2);
+  background: radial-gradient(ellipse at 50% 100%,rgba(81,80,255,.17),transparent 65%),var(--bg2);
 }
 .contact-box .section-intro { margin: 0 auto 25px; }
 .contact-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
 
-footer { border-top: 1px solid var(--border); padding: 25px 0; background: rgba(5, 11, 24, .8); }
+footer { border-top: 1px solid var(--border); padding: 25px 0; background: rgba(5,11,24,.8); }
 .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
 .footer-inner p { color: var(--muted); font-size: .77rem; }
 .footer-links { display: flex; gap: 17px; color: #b8c8df; font-size: .8rem; }
@@ -359,22 +371,21 @@ footer { border-top: 1px solid var(--border); padding: 25px 0; background: rgba(
 }
 .back-top.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
 
-.reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s ease; }
+.reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s ease,transform .7s ease; }
 .reveal.visible { opacity: 1; transform: translateY(0); }
-@keyframes float { 0%,100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-10px) rotate(1deg); } }
 
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { scroll-behavior: auto !important; animation: none !important; transition: none !important; }
+  *,*::before,*::after { scroll-behavior: auto !important; animation: none !important; transition: none !important; }
   .reveal { opacity: 1; transform: none; }
+  #particleCanvas { display: none; }
 }
 
-@media (max-width: 1000px) {
-  .nav-links { gap: 13px; }
-  .nav-links a { font-size: .75rem; }
+@media (max-width: 1050px) {
+  .nav-links { gap: 12px; }
+  .nav-links a { font-size: .73rem; }
   .hero-grid { gap: 20px; }
   .projects-layout { grid-template-columns: 1fr; }
   .skill-panel { display: grid; grid-template-columns: 1fr 1fr; gap: 0 22px; }
-  .skill-panel h3 { grid-column: auto; }
 }
 @media (max-width: 760px) {
   section { padding: 72px 0; }
@@ -383,14 +394,14 @@ footer { border-top: 1px solid var(--border); padding: 25px 0; background: rgba(
   .nav-cta { display: none; }
   .nav-links {
     display: none; position: absolute; top: 68px; left: 0; right: 0;
-    padding: 20px 5% 25px; background: rgba(5, 11, 24, .98);
+    padding: 20px 5% 25px; background: rgba(5,11,24,.98);
     border-bottom: 1px solid var(--border);
     flex-direction: column; align-items: flex-start; gap: 17px;
   }
   .nav-links.open { display: flex; }
   .nav-links a { font-size: .95rem; }
   .hero { min-height: auto; padding: 125px 0 65px; }
-  .hero-grid, .about-grid { grid-template-columns: 1fr; }
+  .hero-grid,.about-grid { grid-template-columns: 1fr; }
   .hero-grid { gap: 35px; }
   .hero h1 { letter-spacing: -2px; }
   .hero-visual { min-height: 360px; }
@@ -406,16 +417,25 @@ footer { border-top: 1px solid var(--border); padding: 25px 0; background: rgba(
   .timeline::before { top: 10px; bottom: 10px; left: 19px; right: auto; width: 1px; height: auto; }
   .timeline-item { padding: 0 0 0 55px; min-height: 50px; }
   .timeline-dot { top: 0; }
-  .project-grid, .experience-grid, .research-grid { grid-template-columns: 1fr; }
+  .project-grid,.experience-grid,.research-grid { grid-template-columns: 1fr; }
   .skill-panel { display: block; }
   .beyond-grid { grid-template-columns: 1fr; }
   .footer-inner { flex-direction: column; text-align: center; }
   .section-title { letter-spacing: -.8px; }
+  .ambient-glow { opacity: .11; }
 }
 </style>
 </head>
 
 <body>
+
+<!-- Animated background -->
+<div class="ambient-background" aria-hidden="true">
+  <div class="ambient-glow glow-one"></div>
+  <div class="ambient-glow glow-two"></div>
+  <div class="ambient-glow glow-three"></div>
+  <canvas id="particleCanvas"></canvas>
+</div>
 
 <header>
   <div class="container nav">
@@ -440,512 +460,503 @@ footer { border-top: 1px solid var(--border); padding: 25px 0; background: rgba(
       <a href="#contact">Contact</a>
     </nav>
 
-    <!-- Replace cv.pdf with your uploaded resume file -->
     <a class="nav-cta" href="cv.pdf" target="_blank" rel="noopener">↓ Download CV</a>
   </div>
 </header>
 
 <main>
-  <section class="hero" id="home">
-    <div class="container hero-grid">
-      <div class="reveal">
-        <div class="eyebrow"><span class="pulse-dot"></span> PhD Researcher · AI · Deep-Tech</div>
-        <h1>Hello, I'm<br><span class="gradient-text">Naveen Kumar.</span></h1>
-        <h2>Researcher. Engineer. Innovator.</h2>
-        <p>
-          I work at the intersection of biomedical signal processing, machine learning,
-          computer vision, and applied artificial intelligence. My goal is to turn
-          research ideas into useful, real-world technologies.
-        </p>
-        <div class="hero-actions">
-          <a href="#projects" class="btn btn-primary">Explore My Work ↗</a>
-          <a href="#contact" class="btn btn-outline">Let's Connect</a>
-        </div>
-        <div class="hero-tags">
-          <span class="tag">IIT Indore · PhD Pursuing</span>
-          <span class="tag">NIT Jalandhar · M.Tech</span>
-          <span class="tag">MNNIT Allahabad · B.Tech</span>
-        </div>
+<section class="hero" id="home">
+  <div class="container hero-grid">
+    <div class="reveal">
+      <div class="eyebrow"><span class="pulse-dot"></span> PhD Researcher · AI · Deep-Tech</div>
+      <h1>Hello, I'm<br><span class="gradient-text">Naveen Kumar.</span></h1>
+      <h2>Researcher. Engineer. Innovator.</h2>
+      <p>I work at the intersection of biomedical signal processing, machine learning, computer vision, and applied artificial intelligence. My goal is to turn research ideas into useful, real-world technologies.</p>
+      <div class="hero-actions">
+        <a href="#projects" class="btn btn-primary">Explore My Work ↗</a>
+        <a href="#contact" class="btn btn-outline">Let's Connect</a>
       </div>
-
-      <div class="hero-visual reveal">
-        <div class="orbit">
-          <div class="avatar">
-            <!-- Add your professional photo as profile.jpg in the same repository.
-                 Then replace the letters below with:
-                 <img src="profile.jpg" alt="Naveen Kumar"> -->
-             <img src="profile.jpg" alt="Naveen Kumar">
-          </div>
-        </div>
-        <div class="floating-card float-one">
-          <strong class="gradient-text">AI + Research</strong>
-          Building practical solutions
-        </div>
-        <div class="floating-card float-two">
-          <strong>Signal Intelligence</strong>
-          Biomedical · Vision · ML
-        </div>
-        <div class="company-bubble">BIGN<span>PIX</span> Innovation</div>
+      <div class="hero-tags">
+        <span class="tag">IIT Indore · PhD Pursuing</span>
+        <span class="tag">NIT Jalandhar · M.Tech</span>
+        <span class="tag">MNNIT Allahabad · B.Tech</span>
       </div>
     </div>
-  </section>
 
-  <div class="stats-strip">
-    <div class="container stats-grid">
-      <div class="stat"><strong>3</strong><span>Academic Institutions</span></div>
-      <div class="stat"><strong>2</strong><span>Industry Experiences</span></div>
-      <div class="stat"><strong>7+</strong><span>Selected Projects</span></div>
-      <div class="stat"><strong>2025</strong><span>GATE ECE Qualified</span></div>
+    <div class="hero-visual reveal">
+      <div class="orbit">
+        <div class="avatar">
+          <!-- Upload profile.jpg beside index.html and replace NK with:
+          <img src="profile.jpg" alt="Naveen Kumar">
+          -->
+          NK
+        </div>
+      </div>
+      <div class="floating-card float-one"><strong class="gradient-text">AI + Research</strong>Building practical solutions</div>
+      <div class="floating-card float-two"><strong>Signal Intelligence</strong>Biomedical · Vision · ML</div>
+      <div class="company-bubble">BIGN<span>PIX</span> Innovation</div>
     </div>
   </div>
+</section>
 
-  <section id="about">
-    <div class="container about-grid">
-      <div class="about-copy reveal">
-        <div class="section-label">A little about me</div>
-        <h2 class="section-title">Curiosity into <span class="gradient-text">capability.</span></h2>
-        <p>
-          I'm Naveen Kumar, an engineer and researcher pursuing a PhD at IIT Indore.
-          My academic background includes a B.Tech from MNNIT Allahabad and an M.Tech
-          from NIT Jalandhar, with a focus on signal processing and machine learning.
-        </p>
-        <p>
-          My professional experience spans business analytics at Tredence Inc. and
-          machine-learning R&D at Hindware Home Innovation Limited. Across these
-          roles and my independent projects, I've explored AI systems for monitoring,
-          healthcare, computer vision, and intelligent control.
-        </p>
-        <p>
-          Beyond technical work, I enjoy teaching, mentoring students, travelling,
-          trekking, and playing sports. I'm interested in building technologies
-          that connect strong engineering with practical impact.
-        </p>
-        <a href="#journey" class="btn btn-outline">Explore My Journey →</a>
-      </div>
+<div class="stats-strip">
+  <div class="container stats-grid">
+    <div class="stat"><strong>3</strong><span>Academic Institutions</span></div>
+    <div class="stat"><strong>2</strong><span>Industry Experiences</span></div>
+    <div class="stat"><strong>7+</strong><span>Selected Projects</span></div>
+    <div class="stat"><strong>2025</strong><span>GATE ECE Qualified</span></div>
+  </div>
+</div>
 
-      <div class="feature-grid reveal">
-        <article class="feature">
-          <div class="icon">🔬</div>
-          <h3>Researcher</h3>
-          <p>Exploring biomedical signals, AI, and data-driven methods.</p>
-        </article>
-        <article class="feature">
-          <div class="icon">⚙️</div>
-          <h3>Engineer</h3>
-          <p>Turning concepts into practical prototypes and algorithms.</p>
-        </article>
-        <article class="feature">
-          <div class="icon">💡</div>
-          <h3>Problem Solver</h3>
-          <p>Using analytical thinking to approach real-world problems.</p>
-        </article>
-        <article class="feature">
-          <div class="icon">🎓</div>
-          <h3>Mentor</h3>
-          <p>Enjoying teaching, learning, and supporting students.</p>
-        </article>
-      </div>
+<section id="about">
+  <div class="container about-grid">
+    <div class="about-copy reveal">
+      <div class="section-label">A little about me</div>
+      <h2 class="section-title">Curiosity into <span class="gradient-text">capability.</span></h2>
+      <p>I'm Naveen Kumar, an engineer and researcher pursuing a PhD at IIT Indore. My academic background includes a B.Tech from MNNIT Allahabad and an M.Tech from NIT Jalandhar, with a focus on signal processing and machine learning.</p>
+      <p>My professional experience spans business analytics at Tredence Inc. and machine-learning R&D at Hindware Home Innovation Limited. Across these roles and my projects, I've explored AI systems for monitoring, healthcare, computer vision, and intelligent control.</p>
+      <p>Beyond technical work, I enjoy teaching, mentoring students, travelling, trekking, and playing sports. I'm interested in building technologies that connect strong engineering with practical impact.</p>
+      <a href="#journey" class="btn btn-outline">Explore My Journey →</a>
     </div>
-  </section>
 
-  <section id="journey">
-    <div class="container">
-      <div class="section-label reveal">The journey so far</div>
-      <h2 class="section-title reveal">Education, industry & <span class="gradient-text">research.</span></h2>
-      <p class="section-intro reveal">A journey across engineering education, analytics, product R&D, and advanced research.</p>
+    <div class="feature-grid reveal">
+      <article class="feature"><div class="icon">🔬</div><h3>Researcher</h3><p>Exploring biomedical signals, AI, and data-driven methods.</p></article>
+      <article class="feature"><div class="icon">⚙️</div><h3>Engineer</h3><p>Turning concepts into practical prototypes and algorithms.</p></article>
+      <article class="feature"><div class="icon">💡</div><h3>Problem Solver</h3><p>Using analytical thinking to approach real-world problems.</p></article>
+      <article class="feature"><div class="icon">🎓</div><h3>Mentor</h3><p>Enjoying teaching, learning, and supporting students.</p></article>
+    </div>
+  </div>
+</section>
 
-      <div class="timeline">
-        <article class="timeline-item reveal">
-          <div class="timeline-dot">🎓</div>
-          <h3>B.Tech · ECE</h3>
-          <p>MNNIT Allahabad</p>
-          <p class="date">2022</p>
+<section id="journey">
+  <div class="container">
+    <div class="section-label reveal">The journey so far</div>
+    <h2 class="section-title reveal">Education, industry & <span class="gradient-text">research.</span></h2>
+    <p class="section-intro reveal">A journey across engineering education, analytics, product R&D, and advanced research.</p>
+    <div class="timeline">
+      <article class="timeline-item reveal"><div class="timeline-dot">🎓</div><h3>B.Tech · ECE</h3><p>MNNIT Allahabad</p><p class="date">2022</p></article>
+      <article class="timeline-item reveal"><div class="timeline-dot">💼</div><h3>Tredence Inc.</h3><p>Business Analyst · Bengaluru</p><p class="date">2022–2024</p></article>
+      <article class="timeline-item reveal"><div class="timeline-dot">🎓</div><h3>M.Tech · SPML</h3><p>NIT Jalandhar</p><p class="date">2024–2026</p></article>
+      <article class="timeline-item reveal"><div class="timeline-dot">⚙️</div><h3>Hindware R&D</h3><p>Senior Machine Learning Engineer</p><p class="date">Add verified dates</p></article>
+      <article class="timeline-item reveal"><div class="timeline-dot">🚀</div><h3>PhD · IIT Indore</h3><p>Biomedical AI & Signal Processing</p><p class="date">Current research</p></article>
+    </div>
+    <p class="disclaimer">Verify your employment dates and PhD start date before publishing.</p>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="container">
+    <div class="section-label reveal">Selected work</div>
+    <h2 class="section-title reveal">Projects built to <span class="gradient-text">solve problems.</span></h2>
+    <p class="section-intro reveal">A selection of AI, machine-learning, computer-vision, and biomedical signal-processing projects.</p>
+
+    <div class="projects-layout">
+      <div class="project-grid">
+        <article class="project-card reveal">
+          <div class="project-art"><span>🧑‍💻</span></div>
+          <div class="project-content">
+            <h3>Real-Time Deep Learning Based Presence Monitoring</h3>
+            <p>A face-recognition-based monitoring system designed to identify registered individuals and record attendance events.</p>
+            <div class="project-tags"><span>Deep Learning</span><span>Computer Vision</span><span>Python</span></div>
+            <a class="project-link" href="https://doi.org/10.1109/EAIC66483.2025" target="_blank" rel="noopener">IEEE paper / DOI ↗</a>
+          </div>
         </article>
-        <article class="timeline-item reveal">
-          <div class="timeline-dot">💼</div>
-          <h3>Tredence Inc.</h3>
-          <p>Business Analyst · Bengaluru</p>
-          <p class="date">2022–2024</p>
+
+        <article class="project-card reveal">
+          <div class="project-art alt1"><span>💓</span></div>
+          <div class="project-content">
+            <h3>Smartphone-Based Heart Rate Estimation</h3>
+            <p>Camera-based video PPG extraction and signal-processing methods for estimating pulse rate using a smartphone.</p>
+            <div class="project-tags"><span>PPG</span><span>STFT</span><span>Signal Processing</span></div>
+            <a class="project-link" href="#research">Explore research ↓</a>
+          </div>
         </article>
-        <article class="timeline-item reveal">
-          <div class="timeline-dot">🎓</div>
-          <h3>M.Tech · SPML</h3>
-          <p>NIT Jalandhar</p>
-          <p class="date">2024–2026</p>
+
+        <article class="project-card reveal">
+          <div class="project-art alt2"><span>🚘</span></div>
+          <div class="project-content">
+            <h3>Driver Drowsiness Detection & Alert</h3>
+            <p>A camera-based monitoring prototype that detects signs of driver drowsiness and triggers an alert.</p>
+            <div class="project-tags"><span>Computer Vision</span><span>Real-Time AI</span></div>
+            <a class="project-link" href="#contact">Ask about this project ↗</a>
+          </div>
         </article>
-        <article class="timeline-item reveal">
-          <div class="timeline-dot">⚙️</div>
-          <h3>Hindware R&D</h3>
-          <p>Senior Machine Learning Engineer</p>
-          <p class="date">2026 · Verify dates</p>
+
+        <article class="project-card reveal">
+          <div class="project-art alt3"><span>🚦</span></div>
+          <div class="project-content">
+            <h3>AI-Based Adaptive Traffic Signal Control</h3>
+            <p>Vehicle-density-based traffic signal timing intended to adapt green-light duration to changing traffic conditions.</p>
+            <div class="project-tags"><span>AI</span><span>Detection</span><span>Optimization</span></div>
+            <a class="project-link" href="#contact">Ask about this project ↗</a>
+          </div>
         </article>
-        <article class="timeline-item reveal">
-          <div class="timeline-dot">🚀</div>
-          <h3>PhD · IIT Indore</h3>
-          <p>Biomedical AI & Signal Processing</p>
-          <p class="date">Current research</p>
+
+        <article class="project-card reveal">
+          <div class="project-art"><span>🪞</span></div>
+          <div class="project-content">
+            <h3>AI-Based Face Detection & Enhancement</h3>
+            <p>A computer-vision project exploring face detection and image-enhancement techniques.</p>
+            <div class="project-tags"><span>Image Processing</span><span>Computer Vision</span></div>
+            <a class="project-link" href="#contact">Ask about this project ↗</a>
+          </div>
+        </article>
+
+        <article class="project-card reveal">
+          <div class="project-art alt1"><span>🧠</span></div>
+          <div class="project-content">
+            <h3>Sleep Staging Using EEG Signals</h3>
+            <p>Sleep-signal analysis and staging workflows involving EEG recordings and computational analysis.</p>
+            <div class="project-tags"><span>EEG</span><span>Biomedical AI</span><span>Python</span></div>
+            <a class="project-link" href="#research">Explore research ↓</a>
+          </div>
+        </article>
+
+        <article class="project-card reveal">
+          <div class="project-art alt2"><span>👁️</span></div>
+          <div class="project-content">
+            <h3>Eye Blink Counting System</h3>
+            <p>A vision-based project to identify eye-blink events from visual input.</p>
+            <div class="project-tags"><span>Computer Vision</span><span>Detection</span></div>
+            <a class="project-link" href="#contact">Ask about this project ↗</a>
+          </div>
         </article>
       </div>
-      <p class="disclaimer">Please verify the employment dates and PhD start date before publishing.</p>
+
+      <aside class="skill-panel reveal">
+        <h3>Programming & Tools</h3>
+        <div class="skill-cloud"><span>Python</span><span>MATLAB</span><span>Git</span><span>Jupyter</span><span>OpenCV</span></div>
+        <h3>AI & Machine Learning</h3>
+        <div class="skill-cloud"><span>Machine Learning</span><span>Deep Learning</span><span>Computer Vision</span><span>Neural Networks</span></div>
+        <h3>Signal Processing</h3>
+        <div class="skill-cloud"><span>Biomedical Signals</span><span>PPG</span><span>ECG</span><span>EEG</span><span>Digital Signal Processing</span></div>
+        <h3>Research Interests</h3>
+        <div class="skill-cloud"><span>AI in Healthcare</span><span>Physiological Monitoring</span><span>Image Processing</span><span>Applied R&D</span></div>
+        <p class="disclaimer">Keep individual skills only where you have practical experience.</p>
+      </aside>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section id="projects">
-    <div class="container">
-      <div class="section-label reveal">Selected work</div>
-      <h2 class="section-title reveal">Projects built to <span class="gradient-text">solve problems.</span></h2>
-      <p class="section-intro reveal">A selection of AI, machine-learning, computer-vision, and biomedical signal-processing projects.</p>
+<section id="experience">
+  <div class="container">
+    <div class="section-label reveal">Professional background</div>
+    <h2 class="section-title reveal">Industry experience.</h2>
+    <p class="section-intro reveal">Working with business data, analytical problems, and product-oriented machine-learning R&D.</p>
+    <div class="experience-grid">
+      <article class="info-card reveal">
+        <div class="info-top"><div class="info-icon">📊</div><div><h3>Tredence Inc.</h3><div class="role">Business Analyst · Bengaluru</div><div class="date">June 2022 – June 2024</div></div></div>
+        <p>Worked on business analytics and data-driven projects, including Optimization of Supply Movement (OSM) and Order With Logic (OWL). Focused on using data and analytical methods to address business problems.</p>
+      </article>
+      <article class="info-card reveal">
+        <div class="info-top"><div class="info-icon">⚙️</div><div><h3>Hindware Home Innovation Limited</h3><div class="role">Senior Machine Learning Engineer · R&D</div><div class="date">Add verified employment dates</div></div></div>
+        <p>Worked on an AI-based chimney-control algorithm using VOC, temperature, and humidity inputs to support automatic ON/OFF operation and speed adjustment.</p>
+      </article>
+    </div>
+  </div>
+</section>
 
-      <div class="projects-layout">
-        <div class="project-grid">
-
-          <article class="project-card reveal">
-            <div class="project-art"><span>🧑‍💻</span></div>
-            <div class="project-content">
-              <h3>Real-Time Deep Learning Based Presence Monitoring</h3>
-              <p>A face-recognition-based presence monitoring system designed to identify registered individuals and record attendance events.</p>
-              <div class="project-tags"><span>Deep Learning</span><span>Computer Vision</span><span>Python</span></div>
-              <a class="project-link" href="https://doi.org/10.1109/EAIC66483.2025" target="_blank" rel="noopener">IEEE paper / DOI ↗</a>
-            </div>
-          </article>
-
-          <article class="project-card reveal">
-            <div class="project-art alt1"><span>💓</span></div>
-            <div class="project-content">
-              <h3>Smartphone-Based Heart Rate Estimation</h3>
-              <p>Camera-based video PPG extraction and signal-processing methods for estimating pulse rate using a smartphone.</p>
-              <div class="project-tags"><span>PPG</span><span>STFT</span><span>Signal Processing</span></div>
-              <a class="project-link" href="#research">Explore research ↓</a>
-            </div>
-          </article>
-
-          <article class="project-card reveal">
-            <div class="project-art alt2"><span>🚘</span></div>
-            <div class="project-content">
-              <h3>Driver Drowsiness Detection & Alert</h3>
-              <p>A camera-based monitoring prototype that detects signs of driver drowsiness and triggers an alert.</p>
-              <div class="project-tags"><span>Computer Vision</span><span>Real-Time AI</span></div>
-              <a class="project-link" href="#contact">Ask about this project ↗</a>
-            </div>
-          </article>
-
-          <article class="project-card reveal">
-            <div class="project-art alt3"><span>🚦</span></div>
-            <div class="project-content">
-              <h3>AI-Based Adaptive Traffic Signal Control</h3>
-              <p>Vehicle-density-based traffic signal timing intended to adapt green-light duration to changing traffic conditions.</p>
-              <div class="project-tags"><span>AI</span><span>Detection</span><span>Optimization</span></div>
-              <a class="project-link" href="#contact">Ask about this project ↗</a>
-            </div>
-          </article>
-
-          <article class="project-card reveal">
-            <div class="project-art"><span>🪞</span></div>
-            <div class="project-content">
-              <h3>AI-Based Face Detection & Enhancement</h3>
-              <p>A computer-vision project exploring face detection and image enhancement techniques.</p>
-              <div class="project-tags"><span>Image Processing</span><span>Computer Vision</span></div>
-              <a class="project-link" href="#contact">Ask about this project ↗</a>
-            </div>
-          </article>
-
-          <article class="project-card reveal">
-            <div class="project-art alt1"><span>🧠</span></div>
-            <div class="project-content">
-              <h3>Sleep Staging Using EEG Signals</h3>
-              <p>Sleep-signal analysis and staging workflows involving EEG recordings and computational analysis.</p>
-              <div class="project-tags"><span>EEG</span><span>Biomedical AI</span><span>Python</span></div>
-              <a class="project-link" href="#research">Explore research ↓</a>
-            </div>
-          </article>
-
-          <article class="project-card reveal">
-            <div class="project-art alt2"><span>👁️</span></div>
-            <div class="project-content">
-              <h3>Eye Blink Counting System</h3>
-              <p>A vision-based project to identify eye-blink events from visual input.</p>
-              <div class="project-tags"><span>Computer Vision</span><span>Detection</span></div>
-              <a class="project-link" href="#contact">Ask about this project ↗</a>
-            </div>
-          </article>
-
+<section id="research">
+  <div class="container">
+    <div class="section-label reveal">Research & recognition</div>
+    <h2 class="section-title reveal">Evidence behind the <span class="gradient-text">ideas.</span></h2>
+    <p class="section-intro reveal">Research publications, physiological-signal analysis, and ongoing innovation.</p>
+    <div class="research-grid">
+      <article class="research-item reveal">
+        <div class="research-icon">📄</div><div>
+          <h3>Real-Time Deep Learning Based Anti-Proxy Presence Monitoring</h3>
+          <p>IEEE EAIC 2025 · Published conference paper.</p>
+          <a class="project-link" href="https://doi.org/10.1109/EAIC66483.2025" target="_blank" rel="noopener">View publication / DOI ↗</a>
         </div>
-
-        <aside class="skill-panel reveal">
-          <h3>Programming & Tools</h3>
-          <div class="skill-cloud">
-            <span>Python</span><span>MATLAB</span><span>Git</span><span>Jupyter</span><span>OpenCV</span>
-          </div>
-          <h3>AI & Machine Learning</h3>
-          <div class="skill-cloud">
-            <span>Machine Learning</span><span>Deep Learning</span><span>Computer Vision</span><span>Neural Networks</span>
-          </div>
-          <h3>Signal Processing</h3>
-          <div class="skill-cloud">
-            <span>Biomedical Signals</span><span>PPG</span><span>ECG</span><span>EEG</span><span>Digital Signal Processing</span>
-          </div>
-          <h3>Research Interests</h3>
-          <div class="skill-cloud">
-            <span>AI in Healthcare</span><span>Physiological Monitoring</span><span>Image Processing</span><span>Applied R&D</span>
-          </div>
-          <p class="disclaimer">This section describes areas of work and interest. Keep individual skills only where you have practical experience.</p>
-        </aside>
-      </div>
-    </div>
-  </section>
-
-  <section id="experience">
-    <div class="container">
-      <div class="section-label reveal">Professional background</div>
-      <h2 class="section-title reveal">Industry experience.</h2>
-      <p class="section-intro reveal">Working with business data, analytical problems, and product-oriented machine-learning R&D.</p>
-
-      <div class="experience-grid">
-        <article class="info-card reveal">
-          <div class="info-top">
-            <div class="info-icon">📊</div>
-            <div>
-              <h3>Tredence Inc.</h3>
-              <div class="role">Business Analyst · Bengaluru</div>
-              <div class="date">June 2022 – June 2024</div>
-            </div>
-          </div>
-          <p>
-            Worked on business analytics and data-driven projects, including
-            Optimization of Supply Movement (OSM) and Order With Logic (OWL).
-            Focused on using data and analytical methods to address business problems.
-          </p>
-        </article>
-
-        <article class="info-card reveal">
-          <div class="info-top">
-            <div class="info-icon">⚙️</div>
-            <div>
-              <h3>Hindware Home Innovation Limited</h3>
-              <div class="role">Senior Machine Learning Engineer · R&D</div>
-              <div class="date">Add your verified employment dates</div>
-            </div>
-          </div>
-          <p>
-            Worked on an AI-based chimney-control algorithm using VOC, temperature,
-            and humidity inputs to support automatic ON/OFF operation and speed adjustment.
-          </p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section id="research">
-    <div class="container">
-      <div class="section-label reveal">Research & recognition</div>
-      <h2 class="section-title reveal">Evidence behind the <span class="gradient-text">ideas.</span></h2>
-      <p class="section-intro reveal">Research publications, physiological-signal analysis, and ongoing innovation.</p>
-
-      <div class="research-grid">
-        <article class="research-item reveal">
-          <div class="research-icon">📄</div>
-          <div>
-            <h3>Real-Time Deep Learning Based Anti-Proxy Presence Monitoring</h3>
-            <p>IEEE EAIC 2025 · Published conference paper.</p>
-            <p style="margin-top:10px"><a class="project-link" href="https://doi.org/10.1109/EAIC66483.2025" target="_blank" rel="noopener">View publication / DOI ↗</a></p>
-          </div>
-        </article>
-
-        <article class="research-item reveal">
-          <div class="research-icon">💓</div>
-          <div>
-            <h3>Smartphone-Based Physiological Monitoring</h3>
-            <p>Research into video-based PPG, signal conditioning, adaptive analysis, and pulse-rate estimation.</p>
-            <p class="small" style="margin-top:8px">Add the exact paper title and publication link when available.</p>
-          </div>
-        </article>
-
-        <article class="research-item reveal">
-          <div class="research-icon">🧠</div>
-          <div>
-            <h3>Biomedical Signal Processing & AI</h3>
-            <p>Research interests include physiological signals, sleep-signal analysis, machine learning, and AI-assisted healthcare.</p>
-          </div>
-        </article>
-
-        <article class="research-item reveal">
-          <div class="research-icon">💡</div>
-          <div>
-            <h3>Patent & Innovation Work</h3>
-            <p>Developing intellectual-property concepts around smartphone-based pulse-rate estimation and adaptive systolic peak detection.</p>
-            <p class="small" style="margin-top:8px">Disclose application status accurately; a disclosure is not necessarily a filed or granted patent.</p>
-          </div>
-        </article>
-      </div>
-      <p class="disclaimer">Add exact titles, co-authors, DOI links, and conference details for all other papers before presenting them as publications.</p>
-    </div>
-  </section>
-
-  <section id="company" class="company-section">
-    <div class="container">
-      <div class="company-box reveal">
-        <div class="company-content">
-          <div class="section-label">Building what comes next</div>
-          <div class="company-logo">
-            <div class="brand-mark">B</div>
-            <div>
-              <h3>BIGN<span class="gradient-text">PIX</span></h3>
-              <p>INNOVATION</p>
-            </div>
-          </div>
-
-          <h2 class="section-title">Intelligence for <span class="gradient-text">real-world impact.</span></h2>
-          <p>
-            BIGNPIX Innovation is my planned deep-tech venture focused on biomedical
-            intelligence, signal and image processing, and AI-driven solutions.
-            The vision is to bridge research, engineering, and useful technology
-            through practical prototypes and responsible innovation.
-          </p>
-          <div class="company-pills">
-            <span>Biomedical Intelligence</span>
-            <span>Signal Processing</span>
-            <span>Image Processing</span>
-            <span>AI / ML</span>
-            <span>Applied Research</span>
-          </div>
-          <a href="#contact" class="btn btn-primary">Discuss Collaboration ↗</a>
-          <p class="disclaimer">Company status: planned venture. Update this wording when the company is formally established.</p>
+      </article>
+      <article class="research-item reveal">
+        <div class="research-icon">💓</div><div>
+          <h3>Smartphone-Based Physiological Monitoring</h3>
+          <p>Research into video-based PPG, signal conditioning, adaptive analysis, and pulse-rate estimation.</p>
+          <p class="small">Add the exact paper title and publication link when available.</p>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="beyond">
-    <div class="container">
-      <div class="section-label reveal">Beyond technology</div>
-      <h2 class="section-title reveal">What keeps me <span class="gradient-text">inspired.</span></h2>
-      <p class="section-intro reveal">Learning and growth happen both inside and outside the lab.</p>
-
-      <div class="beyond-grid">
-        <article class="beyond-card reveal">
-          <div class="icon">🎓</div>
-          <h3>Teaching & Mentoring</h3>
-          <p>
-            Volunteered as a Physics and Chemistry teacher for Classes 8–11
-            through Anokhi Pahal at MNNIT Allahabad. I value helping students
-            develop confidence and prepare for their next steps.
-          </p>
-        </article>
-        <article class="beyond-card reveal">
-          <div class="icon">🏅</div>
-          <h3>Sports & Achievements</h3>
-          <p>
-            Enjoy volleyball, carrom, badminton, and table tennis.
-            Received a silver medal in carrom and was a volleyball runner-up
-            during college. Certificates can be added to the portfolio.
-          </p>
-        </article>
-        <article class="beyond-card reveal">
-          <div class="icon">🏔️</div>
-          <h3>Travel & Exploration</h3>
-          <p>
-            I enjoy travelling, trekking, exploring new places, and spending
-            time on activities that build curiosity, resilience, and perspective.
-          </p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section class="contact-section" id="contact">
-    <div class="container">
-      <div class="contact-box reveal">
-        <div class="section-label">Get in touch</div>
-        <h2 class="section-title">Let's build something <span class="gradient-text">meaningful.</span></h2>
-        <p class="section-intro">
-          Interested in research collaboration, AI projects, biomedical technology,
-          or deep-tech innovation? Feel free to connect.
-        </p>
-        <div class="contact-links">
-          <!-- Replace the example links with your real profile links -->
-          <a class="btn btn-primary" href="mailto:YOUR_EMAIL@example.com">✉ Email Me</a>
-          <a class="btn btn-outline" href="https://www.linkedin.com/" target="_blank" rel="noopener">LinkedIn ↗</a>
-          <a class="btn btn-outline" href="https://github.com/" target="_blank" rel="noopener">GitHub ↗</a>
-          <a class="btn btn-outline" href="https://scholar.google.com/" target="_blank" rel="noopener">Google Scholar ↗</a>
+      </article>
+      <article class="research-item reveal">
+        <div class="research-icon">🧠</div><div>
+          <h3>Biomedical Signal Processing & AI</h3>
+          <p>Research interests include physiological signals, sleep-signal analysis, machine learning, and AI-assisted healthcare.</p>
         </div>
-        <p class="disclaimer">Replace the sample email and generic links with your own public profiles.</p>
+      </article>
+      <article class="research-item reveal">
+        <div class="research-icon">💡</div><div>
+          <h3>Patent & Innovation Work</h3>
+          <p>Developing intellectual-property concepts around smartphone-based pulse-rate estimation and adaptive systolic peak detection.</p>
+          <p class="small">A disclosure is not necessarily a filed or granted patent.</p>
+        </div>
+      </article>
+    </div>
+    <p class="disclaimer">Add exact titles, co-authors, DOI links, and conference details for other papers.</p>
+  </div>
+</section>
+
+<section id="company" class="company-section">
+  <div class="container">
+    <div class="company-box reveal">
+      <div class="company-content">
+        <div class="section-label">Building what comes next</div>
+        <div class="company-logo">
+          <div class="brand-mark">B</div>
+          <div><h3>BIGN<span class="gradient-text">PIX</span></h3><p>INNOVATION</p></div>
+        </div>
+        <h2 class="section-title">Intelligence for <span class="gradient-text">real-world impact.</span></h2>
+        <p>BIGNPIX Innovation is my planned deep-tech venture focused on biomedical intelligence, signal and image processing, and AI-driven solutions. The vision is to bridge research, engineering, and useful technology through practical prototypes and responsible innovation.</p>
+        <div class="company-pills">
+          <span>Biomedical Intelligence</span><span>Signal Processing</span><span>Image Processing</span><span>AI / ML</span><span>Applied Research</span>
+        </div>
+        <a href="#contact" class="btn btn-primary">Discuss Collaboration ↗</a>
+        <p class="disclaimer">Company status: planned venture. Update this wording when the company is formally established.</p>
       </div>
     </div>
-  </section>
+  </div>
+</section>
+
+<section id="beyond">
+  <div class="container">
+    <div class="section-label reveal">Beyond technology</div>
+    <h2 class="section-title reveal">What keeps me <span class="gradient-text">inspired.</span></h2>
+    <p class="section-intro reveal">Learning and growth happen both inside and outside the lab.</p>
+    <div class="beyond-grid">
+      <article class="beyond-card reveal"><div class="icon">🎓</div><h3>Teaching & Mentoring</h3><p>Volunteered as a Physics and Chemistry teacher for Classes 8–11 through Anokhi Pahal at MNNIT Allahabad. I value helping students develop confidence and prepare for their next steps.</p></article>
+      <article class="beyond-card reveal"><div class="icon">🏅</div><h3>Sports & Achievements</h3><p>Enjoy volleyball, carrom, badminton, and table tennis. Received a silver medal in carrom and was a volleyball runner-up during college. Certificates can be added to the portfolio.</p></article>
+      <article class="beyond-card reveal"><div class="icon">🏔️</div><h3>Travel & Exploration</h3><p>I enjoy travelling, trekking, exploring new places, and spending time on activities that build curiosity, resilience, and perspective.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="contact-section" id="contact">
+  <div class="container">
+    <div class="contact-box reveal">
+      <div class="section-label">Get in touch</div>
+      <h2 class="section-title">Let's build something <span class="gradient-text">meaningful.</span></h2>
+      <p class="section-intro">Interested in research collaboration, AI projects, biomedical technology, or deep-tech innovation? Feel free to connect.</p>
+      <div class="contact-links">
+        <a class="btn btn-primary" href="mailto:YOUR_EMAIL@example.com">✉ Email Me</a>
+        <a class="btn btn-outline" href="https://www.linkedin.com/" target="_blank" rel="noopener">LinkedIn ↗</a>
+        <a class="btn btn-outline" href="https://github.com/" target="_blank" rel="noopener">GitHub ↗</a>
+        <a class="btn btn-outline" href="https://scholar.google.com/" target="_blank" rel="noopener">Google Scholar ↗</a>
+      </div>
+      <p class="disclaimer">Replace the sample email and generic links with your real public profile URLs.</p>
+    </div>
+  </div>
+</section>
 </main>
 
 <footer>
   <div class="container footer-inner">
     <a class="brand" href="#home">
       <div class="brand-mark">B</div>
-      <div>
-        <div class="brand-name">BIGN<span class="gradient-text">PIX</span></div>
-        <div class="brand-sub">NAVEEN KUMAR · PERSONAL PORTFOLIO</div>
-      </div>
+      <div><div class="brand-name">BIGN<span class="gradient-text">PIX</span></div><div class="brand-sub">NAVEEN KUMAR · PERSONAL PORTFOLIO</div></div>
     </a>
     <p>© <span id="year"></span> Naveen Kumar. All rights reserved.</p>
-    <div class="footer-links">
-      <a href="#home">Home</a>
-      <a href="#projects">Projects</a>
-      <a href="#contact">Contact</a>
-    </div>
+    <div class="footer-links"><a href="#home">Home</a><a href="#projects">Projects</a><a href="#contact">Contact</a></div>
   </div>
 </footer>
 
 <button class="back-top" id="backTop" aria-label="Back to top">↑</button>
 
 <script>
-  // Mobile navigation
-  const menuToggle = document.getElementById("menuToggle");
-  const navLinks = document.getElementById("navLinks");
+// Mobile navigation
+const menuToggle = document.getElementById("menuToggle");
+const navLinks = document.getElementById("navLinks");
 
-  menuToggle.addEventListener("click", () => {
-    const isOpen = navLinks.classList.toggle("open");
-    menuToggle.setAttribute("aria-expanded", String(isOpen));
-    menuToggle.setAttribute("aria-label", isOpen ? "Close navigation" : "Open navigation");
-    menuToggle.textContent = isOpen ? "✕" : "☰";
+menuToggle.addEventListener("click", () => {
+  const open = navLinks.classList.toggle("open");
+  menuToggle.setAttribute("aria-expanded", String(open));
+  menuToggle.setAttribute("aria-label", open ? "Close navigation" : "Open navigation");
+  menuToggle.textContent = open ? "✕" : "☰";
+});
+
+navLinks.querySelectorAll("a").forEach(link => {
+  link.addEventListener("click", () => {
+    navLinks.classList.remove("open");
+    menuToggle.setAttribute("aria-expanded", "false");
+    menuToggle.setAttribute("aria-label", "Open navigation");
+    menuToggle.textContent = "☰";
   });
+});
 
-  navLinks.querySelectorAll("a").forEach(link => {
-    link.addEventListener("click", () => {
-      navLinks.classList.remove("open");
-      menuToggle.setAttribute("aria-expanded", "false");
-      menuToggle.setAttribute("aria-label", "Open navigation");
-      menuToggle.textContent = "☰";
+// Scroll reveal animation
+const revealItems = document.querySelectorAll(".reveal");
+
+if ("IntersectionObserver" in window) {
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        obs.unobserve(entry.target);
+      }
     });
-  });
+  }, { threshold: 0.12 });
 
-  // Reveal content as it enters the viewport
-  const revealItems = document.querySelectorAll(".reveal");
+  revealItems.forEach(item => observer.observe(item));
+} else {
+  revealItems.forEach(item => item.classList.add("visible"));
+}
 
-  if ("IntersectionObserver" in window) {
-    const observer = new IntersectionObserver((entries, obs) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
-          obs.unobserve(entry.target);
-        }
+// Back-to-top button
+const backTop = document.getElementById("backTop");
+
+window.addEventListener("scroll", () => {
+  backTop.classList.toggle("show", window.scrollY > 450);
+}, { passive: true });
+
+backTop.addEventListener("click", () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
+document.getElementById("year").textContent = new Date().getFullYear();
+
+// Animated background particle network
+(() => {
+  const canvas = document.getElementById("particleCanvas");
+  if (!canvas) return;
+
+  const ctx = canvas.getContext("2d");
+  if (!ctx) return;
+
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const particles = [];
+  const pointer = { x: -1000, y: -1000 };
+
+  let width = 0;
+  let height = 0;
+  let animationId = null;
+  let lastFrame = 0;
+
+  const isMobile = () => window.innerWidth < 700;
+
+  function resize() {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    width = window.innerWidth;
+    height = window.innerHeight;
+
+    canvas.width = Math.round(width * dpr);
+    canvas.height = Math.round(height * dpr);
+    canvas.style.width = width + "px";
+    canvas.style.height = height + "px";
+
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    const count = Math.min(
+      isMobile() ? 24 : 55,
+      Math.floor((width * height) / 23000)
+    );
+
+    particles.length = 0;
+
+    for (let i = 0; i < count; i++) {
+      particles.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 0.24,
+        vy: (Math.random() - 0.5) * 0.24,
+        radius: Math.random() * 1.4 + 0.5
       });
-    }, { threshold: 0.12 });
-
-    revealItems.forEach(item => observer.observe(item));
-  } else {
-    revealItems.forEach(item => item.classList.add("visible"));
+    }
   }
 
-  // Back-to-top button
-  const backTop = document.getElementById("backTop");
+  function draw(timestamp) {
+    animationId = null;
 
-  window.addEventListener("scroll", () => {
-    backTop.classList.toggle("show", window.scrollY > 450);
+    if (reducedMotion.matches || document.hidden) return;
+
+    // Limit animation to approximately 30 frames per second.
+    if (timestamp - lastFrame < 33) {
+      animationId = requestAnimationFrame(draw);
+      return;
+    }
+
+    lastFrame = timestamp;
+    ctx.clearRect(0, 0, width, height);
+
+    const connectionDistance = isMobile() ? 90 : 125;
+
+    for (const p of particles) {
+      p.x += p.vx;
+      p.y += p.vy;
+
+      if (p.x < 0 || p.x > width) p.vx *= -1;
+      if (p.y < 0 || p.y > height) p.vy *= -1;
+
+      p.x = Math.max(0, Math.min(width, p.x));
+      p.y = Math.max(0, Math.min(height, p.y));
+
+      const dx = p.x - pointer.x;
+      const dy = p.y - pointer.y;
+      const distance = Math.sqrt(dx * dx + dy * dy);
+
+      if (distance < 110 && distance > 0) {
+        p.x += (dx / distance) * 0.12;
+        p.y += (dy / distance) * 0.12;
+      }
+
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+      ctx.fillStyle = "rgba(91,185,255,0.55)";
+      ctx.fill();
+    }
+
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const a = particles[i];
+        const b = particles[j];
+
+        const dx = a.x - b.x;
+        const dy = a.y - b.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+
+        if (distance < connectionDistance) {
+          const opacity = (1 - distance / connectionDistance) * 0.15;
+
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.strokeStyle = `rgba(72,142,255,${opacity})`;
+          ctx.lineWidth = 0.7;
+          ctx.stroke();
+        }
+      }
+    }
+
+    animationId = requestAnimationFrame(draw);
+  }
+
+  function start() {
+    if (animationId !== null) {
+      cancelAnimationFrame(animationId);
+      animationId = null;
+    }
+
+    if (reducedMotion.matches || document.hidden) return;
+
+    lastFrame = 0;
+    animationId = requestAnimationFrame(draw);
+  }
+
+  window.addEventListener("resize", resize, { passive: true });
+
+  window.addEventListener("pointermove", event => {
+    pointer.x = event.clientX;
+    pointer.y = event.clientY;
   }, { passive: true });
 
-  backTop.addEventListener("click", () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+  window.addEventListener("pointerleave", () => {
+    pointer.x = -1000;
+    pointer.y = -1000;
   });
 
-  // Current year in the footer
-  document.getElementById("year").textContent = new Date().getFullYear();
+  document.addEventListener("visibilitychange", start);
+  reducedMotion.addEventListener("change", start);
+
+  resize();
+  start();
+})();
 </script>
 </body>
 </html>
